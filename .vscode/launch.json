@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-			"name": "Launch test function",
+			"name": "Test",
 			"type": "go",
 			"request": "launch",
 			"mode": "test",
