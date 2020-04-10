@@ -12,13 +12,10 @@ func TestQueue(t *testing.T) {
 	queue.Insert(&node1)
 	queue.Insert(&node2)
 
-	popped1 := queue.Remove()
-	popped2 := queue.Remove()
-
-	if popped1 != &node1 {
+	if queue.Remove() != &node1 {
 		t.Error("Expected node1 out first")
 	}
-	if popped2 != &node2 {
+	if queue.Remove() != &node2 {
 		t.Error("Expected node2 out last")
 	}
 }
