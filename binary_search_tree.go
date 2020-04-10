@@ -11,46 +11,42 @@ type BinarySearchTree struct {
 }
 
 func (tree *BinarySearchTree) Insert(node *TreeNode) {
-	var insert func(currentNode *TreeNode)
-	insert = func(currentNode *TreeNode) {
-		if currentNode.value < node.value {
-			if currentNode.right == nil {
-				currentNode.right = node
-				return
-			}
-			insert(currentNode.right)
-		} else {
-			if currentNode.left == nil {
-				currentNode.left = node
-				return
-			}
-			insert(currentNode.left)
-		}
-	}
-
 	if tree.root == nil {
 		tree.root = node
 		return
 	}
 
-	insert(tree.root)
+	currentNode := tree.root
+	for {
+		if currentNode.value < node.value {
+			if currentNode.right == nil {
+				currentNode.right = node
+				return
+			}
+			currentNode = currentNode.right
+		} else {
+			if currentNode.left == nil {
+				currentNode.left = node
+				return
+			}
+			currentNode = currentNode.left
+		}
+	}
 }
 
 func (tree *BinarySearchTree) Find(value int) *TreeNode {
-	var find func(currentNode *TreeNode) *TreeNode
-	find = func(currentNode *TreeNode) *TreeNode {
+	currentNode := tree.root
+	for {
 		if currentNode == nil || currentNode.value == value {
 			return currentNode
 		}
 
 		if currentNode.value < value {
-			return find(currentNode.right)
+			currentNode = currentNode.right
 		} else {
-			return find(currentNode.left)
+			currentNode = currentNode.left
 		}
 	}
-
-	return find(tree.root)
 }
 
 func NewBinarySearchTree() BinarySearchTree {
