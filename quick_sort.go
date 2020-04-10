@@ -16,13 +16,13 @@ func pivot(array []int) (pivotIndex int) {
 }
 
 func QuickSort(array []int) []int {
-	if (len(array) <= 1) {
+	if len(array) <= 1 {
 		return array
 	}
 
 	pivotIndex := pivot(array)
 	QuickSort(array[:pivotIndex])
 	QuickSort(array[pivotIndex+1:])
-	
+
 	return array
 }

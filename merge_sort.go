@@ -13,7 +13,7 @@ func merge(a []int, b []int) (merged []int) {
 		} else if b[0] > a[0] {
 			merged = append(merged, a[0])
 			a = a[1:]
-		} else if  b[0] < a[0] {
+		} else if b[0] < a[0] {
 			merged = append(merged, b[0])
 			b = b[1:]
 		}
@@ -23,13 +23,13 @@ func merge(a []int, b []int) (merged []int) {
 }
 
 func MergeSort(array []int) []int {
-	if (len(array) <= 1) {
-		return array;
+	if len(array) <= 1 {
+		return array
 	}
 
 	middle := len(array) / 2
 	left := MergeSort(array[:middle])
 	right := MergeSort(array[middle:])
 
-	return  merge(left, right)
+	return merge(left, right)
 }

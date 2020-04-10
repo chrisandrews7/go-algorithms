@@ -34,7 +34,7 @@ func RadixSort(array []int) []int {
 			maxDigitsSize = size
 		}
 	}
-	
+
 	for i := 1; i <= maxDigitsSize; i++ {
 		array = sort(array, i)
 	}

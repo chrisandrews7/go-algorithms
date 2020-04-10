@@ -12,7 +12,7 @@ func BinarySearch(haystack []int, needle int) int {
 			left = middle + 1
 		} else if haystack[middle] > needle {
 			right = middle
-		} 
+		}
 	}
 
 	if haystack[middle] != needle {

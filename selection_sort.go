@@ -9,7 +9,7 @@ func SelectionSort(array []int) []int {
 				minimum = nextIndex + index
 			}
 		}
-		
+
 		array[index], array[minimum] = array[minimum], value
 	}
 
