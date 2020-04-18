@@ -64,3 +64,7 @@ func (heap *MaxBinaryHeap) ExtractMax() int {
 func NewMaxBinaryHeap() MaxBinaryHeap {
 	return MaxBinaryHeap{}
 }
+
+func NewPriorityQueue() MaxBinaryHeap {
+	return MaxBinaryHeap{}
+}
