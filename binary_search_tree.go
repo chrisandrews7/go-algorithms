@@ -10,7 +10,11 @@ type BinarySearchTree struct {
 	root *TreeNode
 }
 
-func (tree *BinarySearchTree) Insert(node *TreeNode) {
+func (tree *BinarySearchTree) Insert(value int) {
+	node := &TreeNode{
+		value: value,
+	}
+
 	if tree.root == nil {
 		tree.root = node
 		return
@@ -18,7 +22,7 @@ func (tree *BinarySearchTree) Insert(node *TreeNode) {
 
 	currentNode := tree.root
 	for {
-		if currentNode.value < node.value {
+		if currentNode.value < value {
 			if currentNode.right == nil {
 				currentNode.right = node
 				return
@@ -51,10 +55,4 @@ func (tree *BinarySearchTree) Find(value int) *TreeNode {
 
 func NewBinarySearchTree() BinarySearchTree {
 	return BinarySearchTree{}
-}
-
-func NewTreeNode(value int) TreeNode {
-	return TreeNode{
-		value: value,
-	}
 }
