@@ -5,7 +5,7 @@ import (
 )
 
 type Node struct {
-	value int
+	value interface{}
 	next  *Node
 }
 
@@ -15,7 +15,9 @@ type SinglyLinkedList struct {
 	length int
 }
 
-func (list *SinglyLinkedList) InsertBefore(node *Node) {
+func (list *SinglyLinkedList) InsertBefore(value interface{}) {
+	node := &Node{value: value}
+
 	list.length += 1
 
 	if list.head == nil {
@@ -28,7 +30,9 @@ func (list *SinglyLinkedList) InsertBefore(node *Node) {
 	list.head = node
 }
 
-func (list *SinglyLinkedList) InsertAfter(node *Node) {
+func (list *SinglyLinkedList) InsertAfter(value interface{}) {
+	node := &Node{value: value}
+
 	list.length += 1
 
 	if list.head == nil {
@@ -41,31 +45,31 @@ func (list *SinglyLinkedList) InsertAfter(node *Node) {
 	list.tail = node
 }
 
-func (list *SinglyLinkedList) RemoveFirst() *Node {
+func (list *SinglyLinkedList) RemoveFirst() interface{} {
 	poppedNode := list.head
 
 	if list.head == list.tail {
 		list.head = nil
 		list.tail = nil
 		list.length = 0
-		return poppedNode
+		return &poppedNode.value
 	}
 
 	list.head = list.head.next
 	poppedNode.next = nil
 	list.length -= 1
 
-	return poppedNode
+	return &poppedNode.value
 }
 
-func (list *SinglyLinkedList) RemoveLast() *Node {
+func (list *SinglyLinkedList) RemoveLast() interface{} {
 	poppedNode := list.tail
 
 	if list.head == list.tail {
 		list.head = nil
 		list.tail = nil
 		list.length = 0
-		return poppedNode
+		return &poppedNode.value
 	}
 
 	currentNode := list.head
@@ -77,10 +81,10 @@ func (list *SinglyLinkedList) RemoveLast() *Node {
 	currentNode.next = nil
 	list.tail = currentNode
 
-	return poppedNode
+	return &poppedNode.value
 }
 
-func (list *SinglyLinkedList) Remove(node *Node) {
+func (list *SinglyLinkedList) Remove(value interface{}) {
 	if list.head == list.tail {
 		list.head = nil
 		list.tail = nil
@@ -89,7 +93,7 @@ func (list *SinglyLinkedList) Remove(node *Node) {
 	}
 
 	currentNode := list.head
-	for currentNode.next != node && currentNode.next != nil {
+	for currentNode.next.value != value && currentNode.next != nil {
 		currentNode = currentNode.next
 	}
 
@@ -104,12 +108,10 @@ func (list *SinglyLinkedList) Remove(node *Node) {
 	}
 }
 
-func NewSinglyLinkedList() SinglyLinkedList {
-	return SinglyLinkedList{}
+func (list *SinglyLinkedList) Len() int {
+	return list.length
 }
 
-func NewNode(value int) Node {
-	return Node{
-		value: value,
-	}
+func NewSinglyLinkedList() SinglyLinkedList {
+	return SinglyLinkedList{}
 }

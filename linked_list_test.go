@@ -6,62 +6,62 @@ import (
 
 func TestLLInsertAfter(t *testing.T) {
 	list := NewSinglyLinkedList()
-	node1 := NewNode(1)
-	node2 := NewNode(2)
+	node1 := 1
+	node2 := 2
 
-	list.InsertAfter(&node1)
-	list.InsertAfter(&node2)
+	list.InsertAfter(node1)
+	list.InsertAfter(node2)
 
-	if list.head != &node1 {
+	if list.head.value != node1 {
 		t.Error("Head was not set")
 	}
-	if list.tail != &node2 {
+	if list.tail.value != node2 {
 		t.Error("Tail was not set")
 	}
 	if size := list.length; size != 2 {
 		t.Errorf("Wrong length, expected 2 and got %d", size)
 	}
-	if node1.next != &node2 {
+	if list.head.next.value != node2 {
 		t.Error("Nodes are was not linked")
 	}
 }
 
 func TestLLInsertBefore(t *testing.T) {
 	list := NewSinglyLinkedList()
-	node1 := NewNode(1)
-	node2 := NewNode(2)
+	node1 := 1
+	node2 := 2
 
-	list.InsertBefore(&node1)
-	list.InsertBefore(&node2)
+	list.InsertBefore(node1)
+	list.InsertBefore(node2)
 
-	if list.head != &node2 {
+	if list.head.value != node2 {
 		t.Error("Head was not set")
 	}
-	if list.tail != &node1 {
+	if list.tail.value != node1 {
 		t.Error("Tail was not set")
 	}
 	if size := list.length; size != 2 {
 		t.Errorf("Wrong length, expected 2 and got %d", size)
 	}
-	if node2.next != &node1 {
+	if list.head.next.value != node1 {
 		t.Error("Nodes are was not linked")
 	}
 }
 
 func TestLLRemoveFirst(t *testing.T) {
 	list := NewSinglyLinkedList()
-	node1 := NewNode(1)
-	node2 := NewNode(2)
+	node1 := 1
+	node2 := 2
 
-	list.InsertAfter(&node1)
-	list.InsertAfter(&node2)
+	list.InsertAfter(node1)
+	list.InsertAfter(node2)
 
 	popped := list.RemoveFirst()
 
-	if node1.next == &node2 || list.head != &node2 || list.tail != &node2 {
+	if list.head.next.value == node2 || list.head.value != node2 || list.tail.value != node2 {
 		t.Error("Node 1 was not removed")
 	}
-	if popped != &node1 {
+	if popped != node1 {
 		t.Error("Node 1 was not returned")
 	}
 	if size := list.length; size != 1 {
@@ -71,16 +71,16 @@ func TestLLRemoveFirst(t *testing.T) {
 
 func TestLLRemoveFirstWithOneNode(t *testing.T) {
 	list := NewSinglyLinkedList()
-	node1 := NewNode(1)
+	node1 := 1
 
-	list.InsertAfter(&node1)
+	list.InsertAfter(node1)
 
 	popped := list.RemoveFirst()
 
-	if list.head != nil || list.tail != nil {
+	if list.head.value != nil || list.tail.value != nil {
 		t.Error("Node was not removed")
 	}
-	if popped != &node1 {
+	if popped != node1 {
 		t.Error("Node was not returned")
 	}
 	if size := list.length; size != 0 {
@@ -90,20 +90,20 @@ func TestLLRemoveFirstWithOneNode(t *testing.T) {
 
 func TestLLRemoveLast(t *testing.T) {
 	list := NewSinglyLinkedList()
-	node1 := NewNode(1)
-	node2 := NewNode(2)
-	node3 := NewNode(3)
+	node1 := 1
+	node2 := 2
+	node3 := 3
 
-	list.InsertAfter(&node1)
-	list.InsertAfter(&node2)
-	list.InsertAfter(&node3)
+	list.InsertAfter(node1)
+	list.InsertAfter(node2)
+	list.InsertAfter(node3)
 
 	popped := list.RemoveLast()
 
-	if node2.next == &node3 || list.tail != &node2 {
+	if list.tail.value != node2 {
 		t.Error("Node 3 was not removed")
 	}
-	if popped != &node3 {
+	if popped != node3 {
 		t.Error("Node 3 was not returned")
 	}
 	if size := list.length; size != 2 {
@@ -113,16 +113,16 @@ func TestLLRemoveLast(t *testing.T) {
 
 func TestLLRemoveLastWithOneNode(t *testing.T) {
 	list := NewSinglyLinkedList()
-	node1 := NewNode(1)
+	node1 := 1
 
-	list.InsertAfter(&node1)
+	list.InsertAfter(node1)
 
 	popped := list.RemoveLast()
 
-	if list.head != nil || list.tail != nil {
+	if list.head.value != nil || list.tail.value != nil {
 		t.Error("Node was not removed")
 	}
-	if popped != &node1 {
+	if popped != node1 {
 		t.Error("Node was not returned")
 	}
 	if size := list.length; size != 0 {
@@ -132,17 +132,17 @@ func TestLLRemoveLastWithOneNode(t *testing.T) {
 
 func TestLLRemove(t *testing.T) {
 	list := NewSinglyLinkedList()
-	node1 := NewNode(1)
-	node2 := NewNode(2)
-	node3 := NewNode(3)
+	node1 := 1
+	node2 := 2
+	node3 := 3
 
-	list.InsertAfter(&node1)
-	list.InsertAfter(&node2)
-	list.InsertAfter(&node3)
+	list.InsertAfter(node1)
+	list.InsertAfter(node2)
+	list.InsertAfter(node3)
 
-	list.Remove(&node2)
+	list.Remove(node2)
 
-	if node1.next == &node2 {
+	if list.head.next.value == node2 {
 		t.Error("Node 2 was not removed")
 	}
 	if size := list.length; size != 2 {
@@ -152,13 +152,13 @@ func TestLLRemove(t *testing.T) {
 
 func TestLLRemoveWithOneNode(t *testing.T) {
 	list := NewSinglyLinkedList()
-	node1 := NewNode(1)
+	node1 := 1
 
-	list.InsertAfter(&node1)
+	list.InsertAfter(node1)
 
-	list.Remove(&node1)
+	list.Remove(node1)
 
-	if list.head != nil || list.tail != nil {
+	if list.head.value != nil || list.tail.value != nil {
 		t.Error("Node was not removed")
 	}
 	if size := list.length; size != 0 {
@@ -174,13 +174,13 @@ func TestLLRemoveInvalidNode(t *testing.T) {
 	}()
 
 	list := NewSinglyLinkedList()
-	node1 := NewNode(1)
-	node2 := NewNode(2)
-	node3 := NewNode(3)
+	node1 := 1
+	node2 := 2
+	node3 := 3
 
-	list.InsertAfter(&node1)
-	list.InsertAfter(&node2)
+	list.InsertAfter(node1)
+	list.InsertAfter(node2)
 
 	// node3 was never added
-	list.Remove(&node3)
+	list.Remove(node3)
 }

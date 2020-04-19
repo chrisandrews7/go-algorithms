@@ -4,11 +4,11 @@ type Queue struct {
 	list SinglyLinkedList
 }
 
-func (queue *Queue) Insert(node *Node) {
-	queue.list.InsertAfter(node)
+func (queue *Queue) Insert(value interface{}) {
+	queue.list.InsertAfter(value)
 }
 
-func (queue *Queue) Remove() *Node {
+func (queue *Queue) Remove() interface{} {
 	return queue.list.RemoveFirst()
 }
 
