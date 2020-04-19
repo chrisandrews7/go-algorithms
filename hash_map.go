@@ -1,0 +1,62 @@
+package main
+
+import "math"
+
+const PRIME_MULTIPLIER = 8192
+
+type hashNode []string
+
+type HashMap struct {
+	values [][]hashNode
+	size   int
+}
+
+func (hashmap *HashMap) hash(key string) (hashValue int) {
+	keyRune := []rune(key)
+	hashLoopIterations := math.Min(float64(len(keyRune)), 100.00)
+
+	for i := 0; i < int(hashLoopIterations); i++ {
+		hashValue = (hashValue*PRIME_MULTIPLIER + int(keyRune[i])) % hashmap.size
+	}
+
+	return hashValue
+}
+
+func (hashmap *HashMap) getNestedIndex(topIndex int, key string) int {
+	for index, value := range hashmap.values[topIndex] {
+		if value[0] == key {
+			return index
+		}
+	}
+
+	return -1
+}
+
+func (hashmap *HashMap) Set(key string, value string) {
+	index := hashmap.hash(key)
+	node := hashNode{key, value}
+
+	if nestedIndex := hashmap.getNestedIndex(index, key); nestedIndex >= 0 {
+		hashmap.values[index][nestedIndex][1] = value
+		return
+	}
+
+	hashmap.values[index] = append(hashmap.values[index], node)
+}
+
+func (hashmap *HashMap) Get(key string) string {
+	index := hashmap.hash(key)
+
+	if nestedIndex := hashmap.getNestedIndex(index, key); nestedIndex >= 0 {
+		return hashmap.values[index][nestedIndex][1]
+	}
+
+	return ""
+}
+
+func NewHashMap(size int) HashMap {
+	return HashMap{
+		size:   size,
+		values: make([][]hashNode, size),
+	}
+}
