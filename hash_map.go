@@ -2,7 +2,10 @@ package main
 
 import "math"
 
-const PRIME_MULTIPLIER = 8192
+const (
+	MAX_HASH_ITERATIONS = 100.00
+	PRIME_MULTIPLIER    = 8192
+)
 
 type hashNode []string
 
@@ -12,11 +15,10 @@ type HashMap struct {
 }
 
 func (hashmap *HashMap) hash(key string) (hashValue int) {
-	keyRune := []rune(key)
-	hashLoopIterations := math.Min(float64(len(keyRune)), 100.00)
+	hashLoopIterations := math.Min(float64(len(key)), MAX_HASH_ITERATIONS)
 
 	for i := 0; i < int(hashLoopIterations); i++ {
-		hashValue = (hashValue*PRIME_MULTIPLIER + int(keyRune[i])) % hashmap.size
+		hashValue = (hashValue*PRIME_MULTIPLIER + int(key[i])) % hashmap.size
 	}
 
 	return hashValue
