@@ -52,14 +52,14 @@ func (list *SinglyLinkedList) RemoveFirst() interface{} {
 		list.head = nil
 		list.tail = nil
 		list.length = 0
-		return &poppedNode.value
+		return poppedNode.value
 	}
 
 	list.head = list.head.next
 	poppedNode.next = nil
 	list.length -= 1
 
-	return &poppedNode.value
+	return poppedNode.value
 }
 
 func (list *SinglyLinkedList) RemoveLast() interface{} {
@@ -69,7 +69,7 @@ func (list *SinglyLinkedList) RemoveLast() interface{} {
 		list.head = nil
 		list.tail = nil
 		list.length = 0
-		return &poppedNode.value
+		return poppedNode.value
 	}
 
 	currentNode := list.head
@@ -81,7 +81,7 @@ func (list *SinglyLinkedList) RemoveLast() interface{} {
 	currentNode.next = nil
 	list.tail = currentNode
 
-	return &poppedNode.value
+	return poppedNode.value
 }
 
 func (list *SinglyLinkedList) Remove(value interface{}) {

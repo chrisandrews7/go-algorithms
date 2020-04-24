@@ -58,7 +58,7 @@ func TestLLRemoveFirst(t *testing.T) {
 
 	popped := list.RemoveFirst()
 
-	if list.head.next.value == node2 || list.head.value != node2 || list.tail.value != node2 {
+	if list.head.value != node2 || list.tail.value != node2 {
 		t.Error("Node 1 was not removed")
 	}
 	if popped != node1 {
@@ -77,7 +77,7 @@ func TestLLRemoveFirstWithOneNode(t *testing.T) {
 
 	popped := list.RemoveFirst()
 
-	if list.head.value != nil || list.tail.value != nil {
+	if list.head != nil || list.tail != nil {
 		t.Error("Node was not removed")
 	}
 	if popped != node1 {
@@ -119,7 +119,7 @@ func TestLLRemoveLastWithOneNode(t *testing.T) {
 
 	popped := list.RemoveLast()
 
-	if list.head.value != nil || list.tail.value != nil {
+	if list.head != nil || list.tail != nil {
 		t.Error("Node was not removed")
 	}
 	if popped != node1 {
@@ -158,7 +158,7 @@ func TestLLRemoveWithOneNode(t *testing.T) {
 
 	list.Remove(node1)
 
-	if list.head.value != nil || list.tail.value != nil {
+	if list.head != nil || list.tail != nil {
 		t.Error("Node was not removed")
 	}
 	if size := list.length; size != 0 {
