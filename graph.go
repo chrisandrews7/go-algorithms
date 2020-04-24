@@ -1,42 +1,48 @@
 package main
 
-type vertexName string
+type VertexName string
 
-type vertex struct {
-	name  vertexName
-	edges []*edge
+type Vertex struct {
+	name  VertexName
+	edges []*Edge
 }
 
-type edge struct {
-	from   vertexName
-	to     vertexName
+type Edge struct {
+	from   VertexName
+	to     VertexName
 	weight int
 }
 
-type WeightedDirectedGraph struct {
-	adjacencyList map[vertexName]*vertex
+type WeightedUndirectedGraph struct {
+	adjacencyList map[VertexName]*Vertex
 }
 
-func (graph *WeightedDirectedGraph) AddVertex(name vertexName) {
-	vertex := vertex{
+func (graph *WeightedUndirectedGraph) AddVertex(name VertexName) {
+	vertex := &Vertex{
 		name: name,
 	}
 
-	graph.adjacencyList[name] = &vertex
+	graph.adjacencyList[name] = vertex
 }
 
-func (graph *WeightedDirectedGraph) AddEdge(from vertexName, to vertexName, weight int) {
-	edge := edge{
+func (graph *WeightedUndirectedGraph) AddEdge(from VertexName, to VertexName, weight int) {
+	edgeFrom := &Edge{
 		from:   from,
 		to:     to,
 		weight: weight,
 	}
+	edgeTo := &Edge{
+		from:   to,
+		to:     from,
+		weight: weight,
+	}
 
-	graph.adjacencyList[from].edges = append(graph.adjacencyList[from].edges, &edge)
+	graph.adjacencyList[from].edges = append(graph.adjacencyList[from].edges, edgeFrom)
+	graph.adjacencyList[to].edges = append(graph.adjacencyList[to].edges, edgeTo)
 }
 
-func NewWeightedDirectedGraph() WeightedDirectedGraph {
-	return WeightedDirectedGraph{
-		adjacencyList: make(map[vertexName]*vertex),
+func NewWeightedUndirectedGraph() WeightedUndirectedGraph {
+	return WeightedUndirectedGraph{
+		adjacencyList: make(map[VertexName]*Vertex),
 	}
 }
