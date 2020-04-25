@@ -1,12 +1,14 @@
 package main
 
 import (
-	"reflect"
 	"testing"
 )
 
-func TestBHInsert(t *testing.T) {
-	heap := NewMaxBinaryHeap()
+func TestBinaryHeap(t *testing.T) {
+	isLess := func(a interface{}, b interface{}) bool {
+		return a.(int) < b.(int)
+	}
+	heap := NewMaxBinaryHeap(isLess)
 
 	heap.Insert(41)
 	heap.Insert(39)
@@ -16,29 +18,9 @@ func TestBHInsert(t *testing.T) {
 	heap.Insert(12)
 	heap.Insert(55)
 
-	expectedHeap := []int{55, 39, 41, 18, 27, 12, 33}
 	//         55
 	//    39        41
 	// 18    27  12    33
-
-	if !reflect.DeepEqual(heap.values, expectedHeap) {
-		t.Errorf("Heap %d is not in the correct order", heap.values)
-	}
-}
-
-func TestBHExtractMax(t *testing.T) {
-	heap := NewMaxBinaryHeap()
-
-	heap.Insert(41)
-	heap.Insert(39)
-	heap.Insert(33)
-	heap.Insert(18)
-	heap.Insert(27)
-	heap.Insert(55)
-
-	//         55
-	//    39        41
-	// 18    27  33
 
 	if removed := heap.ExtractMax(); removed != 55 {
 		t.Errorf("Expected 55, got %d", removed)
@@ -57,5 +39,11 @@ func TestBHExtractMax(t *testing.T) {
 	}
 	if removed := heap.ExtractMax(); removed != 18 {
 		t.Errorf("Expected 18, got %d", removed)
+	}
+	if removed := heap.ExtractMax(); removed != 12 {
+		t.Errorf("Expected 12, got %d", removed)
+	}
+	if removed := heap.ExtractMax(); removed != nil {
+		t.Errorf("Expected nil, got %d", removed)
 	}
 }
