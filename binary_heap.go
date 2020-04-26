@@ -2,16 +2,16 @@ package main
 
 type LessFunc func(a interface{}, b interface{}) bool
 
-type MaxBinaryHeap struct {
+type BinaryHeap struct {
 	values []interface{}
 	isLess LessFunc
 }
 
-func (heap *MaxBinaryHeap) swapValues(a int, b int) {
+func (heap *BinaryHeap) swapValues(a int, b int) {
 	heap.values[a], heap.values[b] = heap.values[b], heap.values[a]
 }
 
-func (heap *MaxBinaryHeap) bubbleUp(index int) {
+func (heap *BinaryHeap) bubbleUp(index int) {
 	if index == 0 {
 		return
 	}
@@ -24,7 +24,7 @@ func (heap *MaxBinaryHeap) bubbleUp(index int) {
 	}
 }
 
-func (heap *MaxBinaryHeap) sinkDown(index int) {
+func (heap *BinaryHeap) sinkDown(index int) {
 	lastIndex := len(heap.values) - 1
 	leftChildIndex := (index * 2) + 1
 	rightChildIndex := (index * 2) + 2
@@ -47,12 +47,12 @@ func (heap *MaxBinaryHeap) sinkDown(index int) {
 	}
 }
 
-func (heap *MaxBinaryHeap) Enqueue(val interface{}) {
+func (heap *BinaryHeap) Enqueue(val interface{}) {
 	heap.values = append(heap.values, val)
 	heap.bubbleUp(len(heap.values) - 1)
 }
 
-func (heap *MaxBinaryHeap) Dequeue() interface{} {
+func (heap *BinaryHeap) Dequeue() interface{} {
 	lastIndex := len(heap.values) - 1
 	if lastIndex < 0 {
 		return nil
@@ -68,14 +68,14 @@ func (heap *MaxBinaryHeap) Dequeue() interface{} {
 	return removed
 }
 
-func NewMaxBinaryHeap(lessFunc LessFunc) MaxBinaryHeap {
-	return MaxBinaryHeap{
+func NewBinaryHeap(lessFunc LessFunc) BinaryHeap {
+	return BinaryHeap{
 		isLess: lessFunc,
 	}
 }
 
-func NewPriorityQueue(lessFunc LessFunc) MaxBinaryHeap {
-	return MaxBinaryHeap{
+func NewPriorityQueue(lessFunc LessFunc) BinaryHeap {
+	return BinaryHeap{
 		isLess: lessFunc,
 	}
 }

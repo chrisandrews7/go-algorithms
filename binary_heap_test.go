@@ -8,7 +8,7 @@ func TestBinaryHeap(t *testing.T) {
 	isLess := func(a interface{}, b interface{}) bool {
 		return a.(int) < b.(int)
 	}
-	heap := NewMaxBinaryHeap(isLess)
+	heap := NewBinaryHeap(isLess)
 
 	heap.Enqueue(41)
 	heap.Enqueue(39)
