@@ -4,11 +4,11 @@ type Stack struct {
 	list SinglyLinkedList
 }
 
-func (stack *Stack) Insert(value interface{}) {
+func (stack *Stack) Enqueue(value interface{}) {
 	stack.list.InsertBefore(value)
 }
 
-func (stack *Stack) Remove() interface{} {
+func (stack *Stack) Dequeue() interface{} {
 	return stack.list.RemoveFirst()
 }
 

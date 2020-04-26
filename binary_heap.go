@@ -47,12 +47,12 @@ func (heap *MaxBinaryHeap) sinkDown(index int) {
 	}
 }
 
-func (heap *MaxBinaryHeap) Insert(val interface{}) {
+func (heap *MaxBinaryHeap) Enqueue(val interface{}) {
 	heap.values = append(heap.values, val)
 	heap.bubbleUp(len(heap.values) - 1)
 }
 
-func (heap *MaxBinaryHeap) ExtractMax() interface{} {
+func (heap *MaxBinaryHeap) Dequeue() interface{} {
 	lastIndex := len(heap.values) - 1
 	if lastIndex < 0 {
 		return nil

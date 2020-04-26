@@ -1,8 +1,8 @@
 package main
 
 type traversalStorage interface {
-	Insert(value interface{})
-	Remove() interface{}
+	Enqueue(value interface{})
+	Dequeue() interface{}
 	Len() int
 }
 
@@ -11,11 +11,11 @@ func traverse(storage traversalStorage, graph WeightedUndirectedGraph, start Ver
 	store := storage
 
 	startName := graph.adjacencyList[start].name
-	store.Insert(startName)
+	store.Enqueue(startName)
 	visited[startName] = true
 
 	for store.Len() > 0 {
-		name := store.Remove()
+		name := store.Dequeue()
 		vertex := graph.adjacencyList[name.(VertexName)]
 
 		results = append(results, vertex.name)
@@ -23,7 +23,7 @@ func traverse(storage traversalStorage, graph WeightedUndirectedGraph, start Ver
 		for _, edge := range vertex.edges {
 			if visited[edge.to] == false {
 				visited[edge.to] = true
-				store.Insert(edge.to)
+				store.Enqueue(edge.to)
 			}
 		}
 	}

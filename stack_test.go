@@ -9,13 +9,13 @@ func TestStack(t *testing.T) {
 	node1 := 1
 	node2 := 2
 
-	stack.Insert(node1)
-	stack.Insert(node2)
+	stack.Enqueue(node1)
+	stack.Enqueue(node2)
 
-	if stack.Remove() != node2 {
+	if stack.Dequeue() != node2 {
 		t.Error("Expected node2 out first")
 	}
-	if stack.Remove() != node1 {
+	if stack.Dequeue() != node1 {
 		t.Error("Expected node1 out last")
 	}
 }
