@@ -68,6 +68,10 @@ func (heap *BinaryHeap) Dequeue() interface{} {
 	return removed
 }
 
+func (heap *BinaryHeap) Len() int {
+	return len(heap.values)
+}
+
 func NewBinaryHeap(lessFunc LessFunc) BinaryHeap {
 	return BinaryHeap{
 		isLess: lessFunc,
