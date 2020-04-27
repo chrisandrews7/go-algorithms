@@ -6,16 +6,18 @@ type vertex struct {
 	fromVertex VertexName
 }
 
-type queuedItem struct {
+type verticies map[VertexName]*vertex
+
+type queueItem struct {
 	name     VertexName
 	priority int
 }
 
-type verticies map[VertexName]*vertex
+const MAX_INT = int(^uint(0) >> 1)
 
 func Dijkstra(graph WeightedUndirectedGraph, start VertexName, end VertexName) (distance int, fastestPath []VertexName) {
 	compare := func(a interface{}, b interface{}) bool {
-		return a.(queuedItem).priority > b.(queuedItem).priority
+		return a.(queueItem).priority > b.(queueItem).priority
 	}
 	queue := NewPriorityQueue(compare)
 	verticies := make(verticies)
@@ -23,14 +25,14 @@ func Dijkstra(graph WeightedUndirectedGraph, start VertexName, end VertexName) (
 	// Setup
 	for _, v := range graph.adjacencyList {
 		verticies[v.name] = &vertex{
-			distance: 999999,
+			distance: MAX_INT,
 			name:     v.name,
 		}
 		if v.name == start {
 			verticies[v.name].distance = 0
 		}
 
-		queue.Enqueue(queuedItem{
+		queue.Enqueue(queueItem{
 			name:     v.name,
 			priority: verticies[v.name].distance,
 		})
@@ -38,7 +40,7 @@ func Dijkstra(graph WeightedUndirectedGraph, start VertexName, end VertexName) (
 
 	// Traverse routes
 	for queue.Len() > 0 {
-		name := queue.Dequeue().(queuedItem).name
+		name := queue.Dequeue().(queueItem).name
 
 		if name == end {
 			break
@@ -51,7 +53,7 @@ func Dijkstra(graph WeightedUndirectedGraph, start VertexName, end VertexName) (
 				verticies[edge.to].distance = distance
 				verticies[edge.to].fromVertex = edge.from
 
-				queue.Enqueue(queuedItem{
+				queue.Enqueue(queueItem{
 					name:     edge.to,
 					priority: distance,
 				})
