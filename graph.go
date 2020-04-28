@@ -13,8 +13,10 @@ type Edge struct {
 	weight int
 }
 
+type AdjacencyList map[VertexName]*Vertex
+
 type WeightedUndirectedGraph struct {
-	adjacencyList map[VertexName]*Vertex
+	adjacencyList AdjacencyList
 }
 
 func (graph *WeightedUndirectedGraph) AddVertex(name VertexName) {
@@ -43,6 +45,6 @@ func (graph *WeightedUndirectedGraph) AddEdge(from VertexName, to VertexName, we
 
 func NewWeightedUndirectedGraph() WeightedUndirectedGraph {
 	return WeightedUndirectedGraph{
-		adjacencyList: make(map[VertexName]*Vertex),
+		adjacencyList: make(AdjacencyList),
 	}
 }
